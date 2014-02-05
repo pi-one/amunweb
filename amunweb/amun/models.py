@@ -35,6 +35,7 @@ class successful_exploit(models.Model):
 class successful_submission(models.Model):
 	exploit = models.ForeignKey(successful_exploit)
 	download_url = models.CharField(max_length=1025)
+	download_method = models.CharField(max_length=256, blank=True)
 	md5_hash = models.CharField(max_length=32)
 	sha256_hash = models.CharField(max_length=64)
 	count = models.PositiveIntegerField(default=1)
@@ -42,8 +43,8 @@ class successful_submission(models.Model):
 	last_seen = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	class Meta:
-		unique_together = ('download_url', 'md5_hash', 'sha256_hash')
+		unique_together = ('download_method', 'download_url', 'md5_hash', 'sha256_hash')
 		index_together = [
-					["download_url", "md5_hash", "sha256_hash"]
+					["download_method", "download_url", "md5_hash", "sha256_hash"]
 				]
 		get_latest_by = 'last_seen'
