@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h3>Successful Submissions</h3>
+
+	<div class="table-responsive">
+		<table class="table table-condensed table-hover">
+			<tr>
+				<th>Attacker IP</th>
+				<th>Destination Port</th>
+				<th>Vulnerability</th>
+				<th>Last Seen</th>
+				<th>Submissions</th>
+			</tr>
+			{% for sub in submissions%}
+			<tr>
+				<td>{{ sub.exploit.attacker.attacker_ip }}</td>
+				<td>{{ sub.exploit.attacker.victim_port }}</td>
+				<td>{{ sub.exploit.vulnerability_name }}</td>
+				<td>{{ sub.last_seen }}</td>
+				<td>{{ sub.count }}</td>
+			</tr>
+			{% endfor%}
+		</table>
+	</div>
+
+
+	<div class="pagination">
+		<span class="step-links">
+			{% if submissions.has_previous %}
+				<a href="?page={{ submissions.previous_page_number }}">previous</a>
+			{% endif %}
+			<span class="current">
+				Page {{ submissions.number }} of {{ submissions.paginator.num_pages }}.
+			</span>
+			{% if submissions.has_next %}
+				<a href="?page={{ submissions.next_page_number }}">next</a>
+			{% endif %}
+		</span>
+	</div>
+
+{% endblock %}

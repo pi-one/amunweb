@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h3>Initial Connection Details</h3>
+
+	{% if connection %}
+
+<div class="table-responsive">
+	<table class="table table-condensed table-hover">
+		<tr>
+			<td>Source IP</td><td>{{ connection.attacker_ip }}</td>
+		</tr>
+		<tr>
+			<td>Source Port</td><td>{{ connection.attacker_port }}</td>
+		</tr>
+		<tr>
+			<td>Destination IP</td><td>{{ connection.victim_ip }}</td>
+		</tr>
+		<tr>
+			<td>Destination Port</td><td>{{ connection.victim_port }}</td>
+		</tr>
+		<tr>
+			<td>Connection Attempts</td><td>{{ connection.count }}</td>
+		</tr>
+		<tr>
+			<td>First Seen</td><td>{{ connection.first_seen }}</td>
+		</tr>
+		<tr>
+			<td>Last Seen</td><td>{{ connection.last_seen }}</td>
+		</tr>
+		<tr>
+			<td>Sensor ID</td><td>{{ connection.sensor_id }}</td>
+		</tr>
+	</table>
+</div>
+
+	{% else %}
+
+	No such connection entry exists.
+
+	{% endif %}
+
+{% endblock %}
