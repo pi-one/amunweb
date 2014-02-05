@@ -4,12 +4,26 @@
 
 	<h3>Initial Connections</h3>
 
+	<div class="pagination">
+		<span class="step-links">
+			{% if connects.has_previous %}
+				<a href="?page={{ connects.previous_page_number }}">previous</a>
+			{% endif %}
+			<span class="current">
+				Page {{ connects.number }} of {{ connects.paginator.num_pages }}.
+			</span>
+			{% if connects.has_next %}
+				<a href="?page={{ connects.next_page_number }}">next</a>
+			{% endif %}
+		</span>
+	</div>
+
 	<div class="table-responsive">
 		<table class="table table-condensed table-hover">
 			<tr>
 				<th>Source IP</th>
-				<th>Destination IP</th>
 				<th>Destination Port</th>
+				<th>First Seen</th>
 				<th>Last Seen</th>
 				<th>Attempts</th>
 				<th>Options</th>
@@ -17,8 +31,8 @@
 			{% for conn in connects%}
 			<tr>
 				<td>{{ conn.attacker_ip }}</td>
-				<td>{{ conn.victim_ip }}</td>
 				<td>{{ conn.victim_port }}</td>
+				<td>{{ conn.first_seen }}</td>
 				<td>{{ conn.last_seen }}</td>
 				<td>{{ conn.count }}</td>
 				<td><a href="{% url 'initial_details' connection_id=conn.id %}"><span class="glyphicon glyphicon-search"></span></a></td>
@@ -26,7 +40,6 @@
 			{% endfor%}
 		</table>
 	</div>
-
 
 	<div class="pagination">
 		<span class="step-links">

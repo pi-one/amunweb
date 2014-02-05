@@ -28,7 +28,7 @@ def exploit_details(request, exploit_id):
 
 def submissions(request):
 	submissions_list = successful_submission.objects.select_related().order_by('-last_seen')
-	paginator = Paginator(submissions_list, 25)
+	paginator = Paginator(submissions_list, 20)
 	page = request.GET.get('page')
 	try:
 		submissios = paginator.page(page)
@@ -40,7 +40,7 @@ def submissions(request):
 
 def exploits(request):
 	exploits_list = successful_exploit.objects.select_related().order_by('-last_seen')
-	paginator = Paginator(exploits_list, 25)
+	paginator = Paginator(exploits_list, 20)
 	page = request.GET.get('page')
 	try:
 		exploits = paginator.page(page)
@@ -52,7 +52,7 @@ def exploits(request):
 
 def initials(request):
 	connects_list = initial_connection.objects.order_by('-last_seen')
-	paginator = Paginator(connects_list, 25)
+	paginator = Paginator(connects_list, 20)
 	page = request.GET.get('page')
 	try:
 		connects = paginator.page(page)

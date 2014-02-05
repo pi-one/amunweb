@@ -27,10 +27,10 @@ class successful_exploit(models.Model):
 	last_seen = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	class Meta:
+		get_latest_by = 'last_seen'
 		index_together = [
 					["vulnerability_name", "download_method", "shellcode_name"]
 				]
-		get_latest_by = 'last_seen'
 
 class successful_submission(models.Model):
 	exploit = models.ForeignKey(successful_exploit)

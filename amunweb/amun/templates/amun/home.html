@@ -4,39 +4,41 @@
 
 <h3>Dashboard</h3>
 
-<table class="table">
-	<tr>
-		<th>
-			most attempted network ports
-		</th>
-		<th>
-			most connection attempts from
-		</th>
-	</tr>
-	<tr>
-		<td>
-			<img src="charts/top_ports.png">
-		</td>
-		<td>
-			<img src="charts/top_attacker.png">
-		</td>
-	</tr>
-	<tr>
-		<th>
-			most exploited vulnerabilities
-		</th>
-		<th>
-			most detected shellcode
-		</th>
-	</tr>
-	<tr>
-		<td>
-			<img src="charts/top_vulns.png">
-		</td>
-		<td>
-			<img src="charts/top_shellcode.png">
-		</td>
-	</tr>
-</table>
+<div class="table-responsive">
+	<table class="table table-condensed">
+		<tr>
+			<th>
+				most attempted network ports
+			</th>
+			<th>
+				most connection attempts from
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<img src="charts/top_ports.png">
+			</td>
+			<td>
+				<img src="charts/top_attacker.png">
+			</td>
+		</tr>
+		<tr>
+			<th>
+				most exploited vulnerabilities
+			</th>
+			<th>
+				most detected shellcode
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<img src="charts/top_vulns.png">
+			</td>
+			<td>
+				<img src="charts/top_shellcode.png">
+			</td>
+		</tr>
+	</table>
+</div>
 
 {% endblock %}
