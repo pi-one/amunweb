@@ -4,6 +4,20 @@
 
 	<h3>Successful Submissions</h3>
 
+    <div class="pagination">
+        <span class="step-links">
+            {% if submissions.has_previous %}
+                <a href="?page={{ submissions.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ submissions.number }} of {{ submissions.paginator.num_pages }}.
+            </span>
+            {% if submissions.has_next %}
+                <a href="?page={{ submissions.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+
 	<div class="table-responsive">
 		<table class="table table-condensed table-hover">
 			<tr>
@@ -12,6 +26,7 @@
 				<th>Vulnerability</th>
 				<th>Last Seen</th>
 				<th>Submissions</th>
+				<th>Options</th>
 			</tr>
 			{% for sub in submissions%}
 			<tr>
@@ -20,6 +35,7 @@
 				<td>{{ sub.exploit.vulnerability_name }}</td>
 				<td>{{ sub.last_seen }}</td>
 				<td>{{ sub.count }}</td>
+				<td><a href="{% url 'submission_details' submission_id=sub.id %}"><span class="glyphicon glyphicon-search"></span></a></td>
 			</tr>
 			{% endfor%}
 		</table>

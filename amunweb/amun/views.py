@@ -23,8 +23,14 @@ def exploit_details(request, exploit_id):
 		exploit = successful_exploit.objects.get(pk=exploit_id)
 	except successful_exploit.DoesNotExist:
 		exploit = None
-	print exploit
 	return render_to_response('amun/exploit_details.html', {'exploit': exploit})
+
+def submission_details(request, submission_id):
+	try:
+		submission = successful_submission.objects.get(pk=submission_id)
+	except successful_submission.DoesNotExist:
+		submission = None
+	return render_to_response('amun/submission_details.html', {'submission': submission})
 
 def submissions(request):
 	submissions_list = successful_submission.objects.select_related().order_by('-last_seen')
