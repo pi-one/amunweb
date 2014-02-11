@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<h3>Submission Details</h3>
+
+	{% if submission %}
+
+<div class="table-responsive">
+	<table class="table table-condensed table-hover">
+		<tr>
+			<td>Source IP</td><td>{{ submission.exploit.attacker.attacker_ip }}</td>
+		</tr>
+		<tr>
+			<td>Source Port</td><td>{{ submission.exploit.attacker.attacker_port }}</td>
+		</tr>
+		<tr>
+			<td>Destination Port</td><td>{{ submission.exploit.attacker.victim_port }}</td>
+		</tr>
+		<tr>
+			<td>Vulnerability Name</td><td>{{ submission.exploit.vulnerability_name }}</td>
+		</tr>
+		<tr>
+			<td>Download Method (Exploit)</td><td>{{ submission.exploit.download_method }}</td>
+		</tr>
+		<tr>
+			<td>Download Method (Submission)</td><td>{{ submission.download_method }}</td>
+		</tr>
+		<tr>
+			<td>Download URL</td><td>{{ submission.download_url }}</td>
+		</tr>
+		<tr>
+			<td>Shellcode Name</td><td>{{ submission.exploit.shellcode_name }}</td>
+		</tr>
+		<tr>
+			<td>Malware MD5</td><td>{{ submission.md5_hash }}</td>
+		</tr>
+		<tr>
+			<td>Malware SHA256</td><td>{{ submission.sha256_hash }}</td>
+		</tr>
+		<tr>
+			<td>Exploit Attempts</td><td>{{ submission.count }}</td>
+		</tr>
+		<tr>
+			<td>First Seen</td><td>{{ submission.first_seen }}</td>
+		</tr>
+		<tr>
+			<td>Last Seen</td><td>{{ submission.last_seen }}</td>
+		</tr>
+		<tr>
+			<td>Sensor ID</td><td>{{ submission.exploit.attacker.sensor_id }}</td>
+		</tr>
+	</table>
+</div>
+
+	{% else %}
+
+	No such connection entry exists.
+
+	{% endif %}
+
+{% endblock %}
