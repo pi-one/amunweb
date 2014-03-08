@@ -1,6 +1,5 @@
 from django.shortcuts import render_to_response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
 from amun.models import initial_connection, successful_exploit, successful_submission
 
 # Create your views here.
@@ -37,7 +36,7 @@ def submissions(request):
 	paginator = Paginator(submissions_list, 20)
 	page = request.GET.get('page')
 	try:
-		submissios = paginator.page(page)
+		submissions = paginator.page(page)
 	except PageNotAnInteger:
 		submissions = paginator.page(1)
 	except EmptyPage:
