@@ -22,8 +22,7 @@
 		<table class="table table-condensed table-hover">
 			<tr>
 				<th>Attacker IP</th>
-				<th>Destination Port</th>
-				<th>Vulnerability</th>
+				<th>File Hash</th>
 				<th>Last Seen</th>
 				<th>Submissions</th>
 				<th>Options</th>
@@ -31,8 +30,7 @@
 			{% for sub in submissions%}
 			<tr>
 				<td>{{ sub.exploit.attacker.attacker_ip }}</td>
-				<td>{{ sub.exploit.attacker.victim_port }}</td>
-				<td>{{ sub.exploit.vulnerability_name }}</td>
+				<td>{{ sub.md5_hash }}</td>
 				<td>{{ sub.last_seen }}</td>
 				<td>{{ sub.count }}</td>
 				<td><a href="{% url 'submission_details' submission_id=sub.id %}"><span class="glyphicon glyphicon-search"></span></a></td>
