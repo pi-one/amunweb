@@ -29,7 +29,13 @@ def submission_details(request, submission_id):
 		submission = successful_submission.objects.get(pk=submission_id)
 	except successful_submission.DoesNotExist:
 		submission = None
-	return render_to_response('amun/submission_details.html', {'submission': submission})
+	if submission:
+		try:
+			exploits = successful_exploit.objects.all().filter(attacker__attacker_ip=submission.exploit.attacker.attacker_ip)
+		except successful_exploit.DoesNotExist:
+			exploits = None
+	print exploits
+	return render_to_response('amun/submission_details.html', {'submission': submission, 'exploits': exploits})
 
 def submissions(request):
 	submissions_list = successful_submission.objects.select_related().order_by('-last_seen')
