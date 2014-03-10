@@ -50,28 +50,42 @@
 	</table>
 </div>
 {% if exploits %}
-<h3>Exploits from this IP address</h3>
-<div class="table-responsive">
-	<table class="table table-condensed table-hover">
-		<tr>
-            <th>Attacker IP</th>
-            <th>Destination Port</th>
-            <th>Vulnerability</th>
-            <th>Last Seen</th>
-            <th>Exploits</th>
-            <th>Options</th>
-        </tr>
-		{% for expl in exploits %}
-			<tr>
-				<td>{{ expl.attacker.attacker_ip }}</td>
-				<td>{{ expl.attacker.victim_port }}</td>
-                <td>{{ expl.vulnerability_name }}</td>
-                <td>{{ expl.last_seen }}</td>
-				<td>{{ expl.count }}</td>
-				<td><a href="{% url 'exploit_details' exploit_id=expl.id %}"><span class="glyphicon glyphicon-search"></span></a></td>
-			</tr>
-		{% endfor %}
-	</table>
+<div class="panel-group" id="accordion">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					Exploits from this IP address
+				</a>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse">
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-condensed table-hover">
+						<tr>
+				            <th>Attacker IP</th>
+				            <th>Destination Port</th>
+				            <th>Vulnerability</th>
+				            <th>Last Seen</th>
+				            <th>Exploits</th>
+				            <th>Options</th>
+				        </tr>
+						{% for expl in exploits %}
+							<tr>
+								<td>{{ expl.attacker.attacker_ip }}</td>
+								<td>{{ expl.attacker.victim_port }}</td>
+								<td>{{ expl.vulnerability_name }}</td>
+								<td>{{ expl.last_seen }}</td>
+								<td>{{ expl.count }}</td>
+								<td><a href="{% url 'exploit_details' exploit_id=expl.id %}"><span class="glyphicon glyphicon-search"></span></a></td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 {% endif %}
 
