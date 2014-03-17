@@ -10,6 +10,9 @@ def home(request):
 def contact(request):
 	return render_to_response('amun/contact.html')
 
+def search(request):
+	return render_to_response('amun/search.html')
+
 def initial_details(request, connection_id):
 	try:
 		connection = initial_connection.objects.get(pk=connection_id)
@@ -22,7 +25,14 @@ def exploit_details(request, exploit_id):
 		exploit = successful_exploit.objects.get(pk=exploit_id)
 	except successful_exploit.DoesNotExist:
 		exploit = None
-	return render_to_response('amun/exploit_details.html', {'exploit': exploit})
+	if exploit:
+		try:
+			submissions = successful_submission.objects.all().filter(exploit__attacker__attacker_ip=exploit.attacker.attacker_ip)
+		except successful_exploit.DoesNotExist:
+			submissions = None
+	else:
+		submissions = None
+	return render_to_response('amun/exploit_details.html', {'exploit': exploit, 'submissions': submissions})
 
 def submission_details(request, submission_id):
 	try:
@@ -34,7 +44,8 @@ def submission_details(request, submission_id):
 			exploits = successful_exploit.objects.all().filter(attacker__attacker_ip=submission.exploit.attacker.attacker_ip)
 		except successful_exploit.DoesNotExist:
 			exploits = None
-	print exploits
+	else:
+		exploits = None
 	return render_to_response('amun/submission_details.html', {'submission': submission, 'exploits': exploits})
 
 def submissions(request):

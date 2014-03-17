@@ -2,8 +2,18 @@
 
 {% block content %}
 
-	<h3>Submission Details</h3>
+<br/>
 
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					<span class="glyphicon glyphicon-chevron-down"></span>&nbsp;&nbsp;Submission Details
+				</a>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
 	{% if submission %}
 
 <div class="table-responsive">
@@ -44,22 +54,23 @@
 		<tr>
 			<td>Last Seen</td><td>{{ submission.last_seen }}</td>
 		</tr>
-		<tr>
-			<td>Sensor ID</td><td>{{ submission.exploit.attacker.sensor_id }}</td>
-		</tr>
 	</table>
 </div>
+
+			</div>
+		</div>
+</div>
+
 {% if exploits %}
-<div class="panel-group" id="accordion">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-					Exploits from this IP address
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+					<span class="glyphicon glyphicon-chevron-down"></span>&nbsp;&nbsp;Exploits from this IP address
 				</a>
 			</h4>
 		</div>
-		<div id="collapseOne" class="panel-collapse collapse">
+		<div id="collapseTwo" class="panel-collapse collapse">
 			<div class="panel-body">
 				<div class="table-responsive">
 					<table class="table table-condensed table-hover">
@@ -86,12 +97,13 @@
 			</div>
 		</div>
 	</div>
-</div>
 {% endif %}
 
 	{% else %}
 
-	No such connection entry exists.
+	No such submission entry exists.
+
+	</div></div></div>
 
 	{% endif %}
 
