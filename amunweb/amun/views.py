@@ -1,5 +1,6 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from amun.forms import SearchForm
 from amun.models import initial_connection, successful_exploit, successful_submission
 
 # Create your views here.
@@ -11,14 +12,42 @@ def contact(request):
 	return render_to_response('amun/contact.html')
 
 def search(request):
-	return render_to_response('amun/search.html')
+	if request.method == 'POST':
+		form = SearchForm(request.POST)
+		if form.is_valid():
+			term = form.cleaned_data['query']
+			try:
+				result = initial_connection.objects.all().filter(attacker_ip__icontains=term).order_by('-last_seen')
+			except:
+				result = None
+		else:
+			result = None
+	else:
+		form = SearchForm()
+		result = None
+	return render(request, 'amun/search.html', {'form': form, 'result': result})
 
 def initial_details(request, connection_id):
 	try:
 		connection = initial_connection.objects.get(pk=connection_id)
 	except initial_connection.DoesNotExist:
 		connection = None
-	return render_to_response('amun/initial_details.html', {'connection': connection})
+	if connection:
+		try:
+			exploits = successful_exploit.objects.all().filter(attacker__attacker_ip=connection.attacker_ip)
+		except successful_exploit.DoesNotExist:
+			exploits = None
+		if exploits:
+			try:
+				submissions = successful_submission.objects.all().filter(exploit__attacker__attacker_ip=connection.attacker_ip)
+			except successful_exploit.DoesNotExist:
+				submissions = None
+		else:
+			submissions = None
+	else:
+		exploits = None
+		submissions = None
+	return render_to_response('amun/initial_details.html', {'connection': connection, 'exploits': exploits, 'submissions': submissions})
 
 def exploit_details(request, exploit_id):
 	try:
